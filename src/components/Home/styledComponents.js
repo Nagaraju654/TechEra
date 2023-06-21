@@ -4,8 +4,8 @@ export const MainContainer = styled.div`
   background-color: #ffffff;
   min-height: 100vh;
   width: 100vw;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 60px;
+  padding-right: 60px;
   padding-bottom: 50px;
 `
 export const CourseContainer = styled.div`
@@ -13,30 +13,23 @@ export const CourseContainer = styled.div`
 `
 
 export const Heading = styled.h1`
-  font-size: 30px;
-  font-weight: 500;
-  color: #1e293b;
+  font-size: 36px;
+  font-weight: 600;
   font-family: 'Roboto';
+  color: #1e293b;
 `
 export const CourseListContainer = styled.ul`
-  margin: 0px;
-  padding: 0px;
-`
-export const CourseListItem = styled.li`
-  list-style-type: none;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 140px;
+  margin: 0px;
+  padding: 0px;
 `
-export const CourseLogo = styled.img`
-  height: 120px;
-  width: 100px;
-`
-export const CourseText = styled.p`
-  font-size: 24px;
-  font-weight: 500;
-  color: #1e293b;
-  font-family: 'Roboto';
-  padding-left: 14px;
+export const LoaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 80vh;
 `

@@ -1,15 +1,16 @@
 import {Component} from 'react'
+import Loader from 'react-loader-spinner'
 import Header from '../Header'
+import CourseItem from '../CourseItem'
 
 import {
   MainContainer,
   CourseContainer,
   Heading,
   CourseListContainer,
-  CourseListItem,
-  CourseLogo,
-  CourseText,
+  LoaderContainer,
 } from './styledComponents'
+import FailureView from '../FailureView'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -26,19 +27,18 @@ class Home extends Component {
   }
 
   getCourseData = async () => {
-    const {apiStatus} = this.state
     this.setState({apiStatus: apiStatusConstants.inProgress})
     const apiUrl = 'https://apis.ccbp.in/te/courses'
     const response = await fetch(apiUrl)
     if (response.ok) {
       const data = await response.json()
-      const updatedData = data.courses.map(eachCourse => ({
+      const formattedData = data.courses.map(eachCourse => ({
         id: eachCourse.id,
         name: eachCourse.name,
         logoUrl: eachCourse.logo_url,
       }))
       this.setState({
-        courseList: updatedData,
+        courseList: formattedData,
         apiStatus: apiStatusConstants.success,
       })
     } else {
@@ -53,21 +53,44 @@ class Home extends Component {
         <Heading>Courses</Heading>
         <CourseListContainer>
           {courseList.map(eachCourse => (
-            <CourseListItem>
-              <CourseLogo src={eachCourse.imageUrl} />
-              <CourseText>{eachCourse.name}</CourseText>
-            </CourseListItem>
+            <CourseItem key={eachCourse.id} courseDetails={eachCourse} />
           ))}
         </CourseListContainer>
       </CourseContainer>
     )
   }
 
+  onRetry = () => {
+    this.getCourseData()
+  }
+
+  renderFailureView = () => <FailureView onRetry={this.onRetry} />
+
+  renderLoaderView = () => (
+    <LoaderContainer>
+      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
+    </LoaderContainer>
+  )
+
+  renderCourseView = () => {
+    const {apiStatus} = this.state
+    switch (apiStatus) {
+      case apiStatusConstants.success:
+        return this.renderSuccessView()
+      case apiStatusConstants.failure:
+        return this.renderFailureView()
+      case apiStatusConstants.inProgress:
+        return this.renderLoaderView()
+      default:
+        return null
+    }
+  }
+
   render() {
     return (
       <>
         <Header />
-        <MainContainer>{this.renderSuccessView()}</MainContainer>
+        <MainContainer>{this.renderCourseView()}</MainContainer>
       </>
     )
   }
