@@ -1,10 +1,4 @@
-import {
-  FailureViewContainer,
-  FailureViewImage,
-  FailureViewHeading,
-  FailureViewText,
-  RetryButton,
-} from './styledComponents'
+import './index.css'
 
 const FailureView = props => {
   const {onRetry} = props
@@ -14,19 +8,24 @@ const FailureView = props => {
   }
 
   return (
-    <FailureViewContainer>
-      <FailureViewImage
+    <div className="failure-view-container">
+      <img
+        className="failure-view-image"
         src="https://assets.ccbp.in/frontend/react-js/tech-era/failure-img.png"
         alt="failure view"
       />
-      <FailureViewHeading>Oops! Something Went Wrong</FailureViewHeading>
-      <FailureViewText>
+      <h1 className="failure-view-heading">Oops! Something Went Wrong</h1>
+      <p className="failure-view-text">
         We cannot seem to find the page you are looking for.
-      </FailureViewText>
-      <RetryButton type="button" onClick={onClickRetryButton}>
+      </p>
+      <button
+        className="retry-button"
+        type="button"
+        onClick={onClickRetryButton}
+      >
         Retry
-      </RetryButton>
-    </FailureViewContainer>
+      </button>
+    </div>
   )
 }
 

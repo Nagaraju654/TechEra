@@ -2,16 +2,8 @@ import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 import Header from '../Header'
 
-import {
-  MainContainer,
-  CourseDetailsMainContainer,
-  CourseDetailsContainer,
-  CourseDetailsImage,
-  CourseDetailsTextContainer,
-  CourseDetailsHeading,
-  CourseDetailsText,
-  LoaderContainer,
-} from './styledComponents'
+import './index.css'
+
 import FailureView from '../FailureView'
 
 const apiStatusConstants = {
@@ -34,7 +26,7 @@ class CourseItemDetails extends Component {
     const {match} = this.props
     const {params} = match
     const {id} = params
-    console.log(this.props)
+    console.log(id)
     const url = `https://apis.ccbp.in/te/courses/${id}`
     const options = {
       method: 'GET',
@@ -59,17 +51,20 @@ class CourseItemDetails extends Component {
 
   renderCourseDetailsSuccessView = () => {
     const {courseData} = this.state
-    const {name, imageUrl, description} = courseData
     return (
-      <CourseDetailsMainContainer>
-        <CourseDetailsContainer>
-          <CourseDetailsImage src={imageUrl} alt={name} />
-          <CourseDetailsTextContainer>
-            <CourseDetailsHeading>{name}</CourseDetailsHeading>
-            <CourseDetailsText>{description}</CourseDetailsText>
-          </CourseDetailsTextContainer>
-        </CourseDetailsContainer>
-      </CourseDetailsMainContainer>
+      <div className="course-details-main-container">
+        <div className="course-details-container">
+          <img
+            className="image"
+            src={courseData.imageUrl}
+            alt={courseData.name}
+          />
+          <div className="course-details-text-container">
+            <h1 className="course-details-heading">{courseData.name}</h1>
+            <p className="description">{courseData.description}</p>
+          </div>
+        </div>
+      </div>
     )
   }
 
@@ -80,9 +75,9 @@ class CourseItemDetails extends Component {
   renderFailureView = () => <FailureView onRetry={this.onRetry} />
 
   renderLoaderView = () => (
-    <LoaderContainer>
+    <div className="loader-container">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
-    </LoaderContainer>
+    </div>
   )
 
   renderCourseItemDetailsView = () => {
@@ -103,7 +98,9 @@ class CourseItemDetails extends Component {
     return (
       <>
         <Header />
-        <MainContainer>{this.renderCourseItemDetailsView()}</MainContainer>
+        <div className="app-container">
+          {this.renderCourseItemDetailsView()}
+        </div>
       </>
     )
   }

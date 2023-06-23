@@ -1,4 +1,4 @@
-import {Route, Switch, Redirect} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 import './App.css'
 import Home from './components/Home'
 import NotFound from './components/NotFound'
@@ -9,8 +9,7 @@ const App = () => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route exact path="/courses/:id" component={CourseItemDetails} />
-    <Route path="/not-found" component={NotFound} />
-    <Redirect to="/not-found" />
+    <Route component={NotFound} />
   </Switch>
 )
 

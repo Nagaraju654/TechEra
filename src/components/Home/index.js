@@ -3,13 +3,7 @@ import Loader from 'react-loader-spinner'
 import Header from '../Header'
 import CourseItem from '../CourseItem'
 
-import {
-  MainContainer,
-  CourseContainer,
-  Heading,
-  CourseListContainer,
-  LoaderContainer,
-} from './styledComponents'
+import './index.css'
 import FailureView from '../FailureView'
 
 const apiStatusConstants = {
@@ -49,14 +43,14 @@ class Home extends Component {
   renderSuccessView = () => {
     const {courseList} = this.state
     return (
-      <CourseContainer>
-        <Heading>Courses</Heading>
-        <CourseListContainer>
+      <div>
+        <h1 className="heading">Courses</h1>
+        <ul className="course-list-container">
           {courseList.map(eachCourse => (
             <CourseItem key={eachCourse.id} courseDetails={eachCourse} />
           ))}
-        </CourseListContainer>
-      </CourseContainer>
+        </ul>
+      </div>
     )
   }
 
@@ -67,9 +61,9 @@ class Home extends Component {
   renderFailureView = () => <FailureView onRetry={this.onRetry} />
 
   renderLoaderView = () => (
-    <LoaderContainer>
+    <div className="loader-container">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
-    </LoaderContainer>
+    </div>
   )
 
   renderCourseView = () => {
@@ -90,7 +84,7 @@ class Home extends Component {
     return (
       <>
         <Header />
-        <MainContainer>{this.renderCourseView()}</MainContainer>
+        <div className="main-container">{this.renderCourseView()}</div>
       </>
     )
   }
